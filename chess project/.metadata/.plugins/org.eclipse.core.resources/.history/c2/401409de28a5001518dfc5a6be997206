@@ -1,0 +1,14 @@
+package board;
+
+/**
+ * Board will be an mutable class that will represent a chess board
+ *
+ */
+public class Board {
+	private List[List[Pieces]] game = List[List[8]];
+	
+	
+	
+	
+	
+}

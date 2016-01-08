@@ -1,0 +1,88 @@
+package board;
+
+import java.util.ArrayList;
+
+/**
+ * Board will be an mutable class that will represent a chess board
+ *
+ */
+public class Board {
+	private Piece[][] boardPieces;
+	private boolean whiteTurn = true;
+	
+	
+	/**
+	 * boardPieces will hold the game state it will be mutated by every move in the game.
+	 * 
+	 */
+	public Board(){
+		boardPieces = Helper.standardBoard();
+	}
+	
+
+	private ArrayList<Integer[]> possibleMovesForPiece(Integer[] location){
+		ArrayList<Integer[]> moves = new ArrayList<>();
+		final int x = location[0];
+		final int y = location[1];
+		Piece movingPiece = boardPieces [x] [y];
+		//Moves for the knights
+		if (movingPiece.equals(Piece.White_Knight) || movingPiece.equals(Piece.Black_Knight)){
+			for(int i = 0; i < 8; i++){
+				Integer[] move = new Integer[2];
+				if(i==0){
+					move[0] = x + 1;
+					move[1] = y + 2;
+				}
+				else if(i==1){
+					move[0] = x + 2;
+					move[1] = y + 1;	
+				}
+				else if(i==2){
+					move[0] = x + 2;
+					move[1] = y - 1;
+				}
+				else if(i==3){
+					move[0] = x + 1;
+					move[1] = y - 2;
+				}
+				else if(i==4){
+					move[0] = x + 1;
+					move[1] = y - 2;
+				}
+				else if(i==5){
+					
+				}
+				else if(i==6){
+					
+				}
+				else if(i==7){
+					
+				}
+				
+			}
+		}
+		return moves;
+	}
+	
+	private boolean isLegal(Integer[] start, Integer[] end){
+		Piece movingPiece = boardPieces [start[0]] [start[1]];
+		//Not Your Turn
+		if(Helper.isWhitePiece(movingPiece) != whiteTurn){
+			return false;
+		}
+		//No Piece at start location
+		if(movingPiece.equals(Piece.No_Piece)){
+			return false;
+		}
+		if(possibleMovesForPiece(start).contains(end)){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+}

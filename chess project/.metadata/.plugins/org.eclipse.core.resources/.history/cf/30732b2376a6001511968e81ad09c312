@@ -1,0 +1,335 @@
+package board;
+
+import java.util.ArrayList;
+
+/**
+ * Board will be an mutable class that will represent a chess board
+ *
+ */
+public class Board {
+	private Piece[][] boardPieces;
+	private boolean whiteTurn = true;
+	
+	
+	/**
+	 * boardPieces will hold the game state it will be mutated by every move in the game.
+	 * 
+	 */
+	public Board(){
+		boardPieces = Helper.standardBoard();
+	}
+	
+
+	public ArrayList<Integer[]> possibleMovesForPiece(Integer[] location){
+		ArrayList<Integer[]> moves = new ArrayList<>();
+		Piece movingPiece = boardPieces [location[0]] [location[1]];
+		//Moves for the White_Ponds
+		if (movingPiece.equals(Piece.White_Pond)){
+			moves.addAll(moveWhitePond(location));
+		}
+		
+		//Moves for the Black_Ponds
+		else if (movingPiece.equals(Piece.Black_Pond)){
+			moves.addAll(moveBlackPond(location));
+		}
+		
+		//Moves for the knights
+		else if (movingPiece.equals(Piece.White_Knight) || movingPiece.equals(Piece.Black_Knight)){
+			moves.addAll(moveKnight(location));
+		}
+		
+		//Moves for the Bishops
+		else if (movingPiece.equals(Piece.White_Bishop) || movingPiece.equals(Piece.Black_Bishop)){
+			moves.addAll(moveBishop(location));
+		}
+		
+		//Moves for the Castles
+		else if (movingPiece.equals(Piece.White_Castle) || movingPiece.equals(Piece.Black_Castle)){
+			moves.addAll(moveCastle(location));
+		}
+		
+		//Moves for the Queens
+		else if (movingPiece.equals(Piece.White_Queen) || movingPiece.equals(Piece.Black_Queen)){
+			moves.addAll(moveCastle(location));
+			moves.addAll(moveBishop(location));
+		}
+		
+		
+		//Moves for the Kings
+		else if (movingPiece.equals(Piece.White_King) || movingPiece.equals(Piece.Black_King)){
+			moves.addAll(moveKing(location));
+		}
+		return moves;
+	}
+	
+	private boolean isLegal(Integer[] start, Integer[] end){
+		Piece movingPiece = boardPieces [start[0]] [start[1]];
+		//Not Pieces Turn
+		if(Helper.isWhitePiece(movingPiece) != whiteTurn){
+			return false;
+		}
+		//No Piece at start location
+		if(movingPiece.equals(Piece.No_Piece)){
+			return false;
+		}
+		System.out.println(possibleMovesForPiece(start).toString());
+		if(possibleMovesForPiece(start).contains(end)){
+			return true;
+		}
+		return false;
+	}
+	
+	private ArrayList<Integer[]> moveKnight(Integer[] location){
+		ArrayList<Integer[]> moves = new ArrayList<>();
+		final int x = location[0];
+		final int y = location[1];
+		Piece movingPiece = boardPieces [x] [y];
+		for(int i = 0; i < 8; i++){
+			Integer[] move = new Integer[2];
+			move[0] = Helper.Knight.get(i) + x;
+			move[1] = Helper.Knight.get((i+2)%8) + y;
+			if (move[0] > 7 || move[1] >7 || move[0]<0 || move[1] <0){
+				continue;
+			}
+			else if (boardPieces [move[0]] [move[1]].equals(Piece.No_Piece)){
+				moves.add(move);
+			}
+			else if (!Helper.sameColor(movingPiece, boardPieces [move[0]] [move[1]])){
+				moves.add(move);
+			}
+		}
+		return moves;
+	}
+	
+	private ArrayList<Integer[]> moveBishop(Integer[] location){
+		ArrayList<Integer[]> moves = new ArrayList<>();
+		final int x = location[0];
+		final int y = location[1];
+		Piece movingPiece = boardPieces [x] [y];
+		for(int i = 0; i < 4; i++){
+			int dx = Helper.Bishop.get(i);
+			int dy = Helper.Bishop.get((i+1)%4);
+			int lastx = x + dx;
+			int lasty = y + dy;
+			Boolean keepgoing = true;
+			while(keepgoing){
+				if(lastx < 0 || lasty< 0 || lastx > 7 || lasty > 7){
+					keepgoing = false;
+				}
+				else if(boardPieces[lastx][lasty].equals(Piece.No_Piece)){
+					Integer[] move = new Integer[2];
+					move[0] = lastx;
+					move[1] = lasty;
+					moves.add(move);
+					lastx += dx;
+					lasty += dy;
+				}
+				else if(Helper.sameColor(movingPiece, boardPieces[lastx][lasty])){
+					keepgoing = false;
+				}
+				else if(!Helper.sameColor(movingPiece, boardPieces[lastx][lasty])){
+					keepgoing = false;
+					Integer[] move = new Integer[2];
+					move[0] = lastx;
+					move[1] = lasty;
+					moves.add(move);
+				}
+			}	
+		}
+		return moves;
+	}
+	
+	private ArrayList<Integer[]> moveCastle(Integer[] location){
+		ArrayList<Integer[]> moves = new ArrayList<>();
+		final int x = location[0];
+		final int y = location[1];
+		Piece movingPiece = boardPieces [x] [y];
+		for(int i = 0; i < 4; i++){
+			int dx = Helper.Castle.get(i);
+			int dy = Helper.Castle.get((i+1)%4);
+			int lastx = x + dx;
+			int lasty = y + dy;
+			Boolean keepgoing = true;
+			while(keepgoing){
+				if(lastx < 0 || lasty< 0 || lastx > 7 || lasty > 7){
+					keepgoing = false;
+				}
+				else if(boardPieces[lastx][lasty].equals(Piece.No_Piece)){
+					Integer[] move = new Integer[2];
+					move[0] = lastx;
+					move[1] = lasty;
+					moves.add(move);
+					lastx += dx;
+					lasty += dy;
+				}
+				else if(Helper.sameColor(movingPiece, boardPieces[lastx][lasty])){
+					keepgoing = false;
+				}
+				else if(!Helper.sameColor(movingPiece, boardPieces[lastx][lasty])){
+					keepgoing = false;
+					Integer[] move = new Integer[2];
+					move[0] = lastx;
+					move[1] = lasty;
+					moves.add(move);
+				}
+			}	
+		}
+		return moves;
+	}
+
+	private ArrayList<Integer[]> moveWhitePond(Integer[] location){
+		ArrayList<Integer[]> moves = new ArrayList<>();
+		final int x = location[0];
+		final int y = location[1];
+		Integer[] move = new Integer[2];
+		move [0] = x;
+		move [1] = y + 1;
+		if (boardPieces [move[0]] [move[1]].equals(Piece.No_Piece)){
+			moves.add(move);
+		}
+		if(y == 1){
+			Integer[] moveDouble = new Integer[2];
+			moveDouble [0] = x;
+			moveDouble [1] = y + 2;
+			if (boardPieces [moveDouble[0]] [moveDouble[1]].equals(Piece.No_Piece) && boardPieces [move[0]] [move[1]].equals(Piece.No_Piece)){
+				moves.add(moveDouble);
+			}
+		}
+		if(x+1<8){
+			Integer[] killMoveRight = new Integer[2];
+			killMoveRight [0] = x + 1;
+			killMoveRight [1] = y + 1;
+			Piece other = boardPieces [killMoveRight[0]] [killMoveRight[1]];
+			if(!other.equals(Piece.No_Piece) && !Helper.isWhitePiece(other)){
+				moves.add(killMoveRight);
+			}		
+		}
+		if(x-1>-1){
+			Integer[] killMoveLeft = new Integer[2];
+			killMoveLeft [0] = x - 1;
+			killMoveLeft [1] = y + 1;
+			Piece other = boardPieces [killMoveLeft[0]] [killMoveLeft[1]];
+			if(!other.equals(Piece.No_Piece) && !Helper.isWhitePiece(other)){
+				moves.add(killMoveLeft);
+			}		
+		}
+		return moves;
+	}
+	
+	private ArrayList<Integer[]> moveBlackPond(Integer[] location){
+		ArrayList<Integer[]> moves = new ArrayList<>();
+		final int x = location[0];
+		final int y = location[1];
+		Integer[] move = new Integer[2];
+		move [0] = x;
+		move [1] = y - 1;
+		if (boardPieces [move[0]] [move[1]].equals(Piece.No_Piece)){
+			moves.add(move);
+		}
+		if(y == 6){
+			Integer[] moveDouble = new Integer[2];
+			moveDouble [0] = x;
+			moveDouble [1] = y - 2;
+			if (boardPieces [moveDouble[0]] [moveDouble[1]].equals(Piece.No_Piece) && boardPieces [move[0]] [move[1]].equals(Piece.No_Piece)){
+				moves.add(moveDouble);
+			}
+		}
+		if(x+1<8){
+			Integer[] killMoveRight = new Integer[2];
+			killMoveRight [0] = x + 1;
+			killMoveRight [1] = y - 1;
+			Piece other = boardPieces [killMoveRight[0]] [killMoveRight[1]];
+			if(Helper.isWhitePiece(other)){
+				moves.add(killMoveRight);
+			}		
+		}
+		if(x-1>-1){
+			Integer[] killMoveLeft = new Integer[2];
+			killMoveLeft [0] = x - 1;
+			killMoveLeft [1] = y - 1;
+			Piece other = boardPieces [killMoveLeft[0]] [killMoveLeft[1]];
+			if(Helper.isWhitePiece(other)){
+				moves.add(killMoveLeft);
+			}		
+		}
+		return moves;
+	}
+	
+	private ArrayList<Integer[]> moveKing(Integer[] location){
+		ArrayList<Integer[]> moves = new ArrayList<>();
+		final int x = location[0];
+		final int y = location[1];
+		Piece movingPiece = boardPieces [x] [y];
+		for(int i =0; i<8; i++){
+			Integer[] move = new Integer[2];
+			move[0] = x + Helper.King.get(i);
+			move[1] = y + Helper.King.get((i+2)&8); 
+			if(move[0] < 0 || move[1]< 0 || move[0] > 7 || move[1] > 7){
+				continue;
+			}
+			else if(Helper.sameColor(movingPiece, boardPieces[move[0]][move[1]])){
+				continue;
+			}
+			else if(!endangered(move,location)){
+				moves.add(move);
+			}
+		}
+		return moves;
+	}
+	
+	private boolean endangered(Integer[] move,Integer[] location){
+		Piece[][] theoryBoard = safeBoard();
+		Piece movingPiece = boardPieces [location[0]] [location[1]];
+		theoryBoard[move[0]][move[1]] = theoryBoard[location[0]][location[1]];
+		theoryBoard[location[0]][location[1]] = Piece.No_Piece;
+		for(int i = 0; i < 8; i ++){
+			for(int j = 0; j < 8; j++){
+				if(boardPieces[i][j].equals(Piece.No_Piece) || Helper.sameColor(movingPiece, boardPieces[i][j])){
+					continue;
+				}
+				else{
+					Integer[] spot = new Integer[2];
+					spot[0] = i;
+					spot[1] = j;
+					if(possibleMovesForPiece(spot).contains(move)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	private Piece[][] safeBoard(){
+		Piece[][] safeBoard = new Piece[8][8];
+		for(int i = 0; i < 8; i ++){
+			for(int j = 0; j < 8; j++){
+				safeBoard[i][j] = boardPieces[i][j];
+			}
+		}
+		return safeBoard;
+	}
+
+	public void move(Integer[] start,Integer[] end){
+		System.out.println("here2");
+		if(isLegal(start,end)){
+			System.out.println("here");
+			boardPieces[end[0]][end[1]] = boardPieces[start[0]][start[1]];
+			boardPieces[start[0]][start[1]] = Piece.No_Piece;
+			whiteTurn = !whiteTurn;
+		}
+	}
+	
+	public String viewBoard(){
+		String out = "";
+		for(int i = 0; i < 8; i++){
+			for(int j=0; j < 8; j++){
+				if (!boardPieces[i][j].equals(Piece.No_Piece)){
+					out += "i: " + i + " j: " + j + " piece: " + boardPieces[i][j].toString() +"\n";
+				}
+			}
+		}
+		return out;
+	}
+
+}

@@ -1,0 +1,11 @@
+package board;
+
+public class Pieces {
+
+}
+
+public enum Pi {
+    DUPLET,
+    TRIPLET,
+    QUADRUPLET;
+}

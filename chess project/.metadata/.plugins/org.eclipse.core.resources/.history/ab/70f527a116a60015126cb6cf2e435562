@@ -1,0 +1,24 @@
+package board;
+
+import java.util.ArrayList;
+
+public interface ChessPiece {
+	/**
+	 * 
+	 * @return true iff the piece is white
+	 */
+	public boolean isWhite();
+	
+	/**
+	 * 
+	 * @return the value of this Piece
+	 */
+	public int getValue();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ArrayList<Integer[]> possibleMoves(Integer[] currentPosition,Board board);
+	
+}
