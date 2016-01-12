@@ -1,0 +1,104 @@
+package tictactoe;
+
+public class Board{
+	private tac[][] board = new tac[3][3];
+	private boolean xturn = true;
+	
+	
+	public Board() {
+		for (int j = 0; j<3; j++) {
+			for (int i = 0; i<3; i++) {
+				board[i][j] = tac.notac;
+			}
+		}
+	}
+	
+	public void move (int x, int y) {
+		
+		if (board[x][y].equals(tac.notac)){
+			if (xturn) {
+				board[x][y] = tac.xtac;
+			
+			}
+			else {
+				board[x][y] = tac.otac;
+			}
+		}
+		
+		if (board[0][0].equals(tac.xtac) && board[0][1].equals(tac.xtac) && board[0][2].equals(tac.xtac)) {
+			System.out.println("x wins");	
+		}
+		if (board[1][0].equals(tac.xtac) && board[1][1].equals(tac.xtac) && board[1][2].equals(tac.xtac)) {
+			System.out.println("x wins");	
+		}
+		if (board[2][0].equals(tac.xtac) && board[2][1].equals(tac.xtac) && board[2][2].equals(tac.xtac)) {
+			System.out.println("x wins");	
+		}
+		if (board[0][0].equals(tac.xtac) && board[1][0].equals(tac.xtac) && board[2][0].equals(tac.xtac)) {
+			System.out.println("x wins");	
+		}
+		if (board[0][1].equals(tac.xtac) && board[1][1].equals(tac.xtac) && board[2][1].equals(tac.xtac)) {
+			System.out.println("x wins");	
+		}
+		if (board[0][2].equals(tac.xtac) && board[1][2].equals(tac.xtac) && board[2][2].equals(tac.xtac)) {
+			System.out.println("x wins");	
+		}
+		if (board[0][0].equals(tac.xtac) && board[1][1].equals(tac.xtac) && board[2][2].equals(tac.xtac)) {
+			System.out.println("x wins");	
+		}
+		if (board[2][0].equals(tac.xtac) && board[1][1].equals(tac.xtac) && board[0][2].equals(tac.xtac)) {
+			System.out.println("x wins");	
+		}
+		
+		
+		if (board[0][0].equals(tac.otac) && board[0][1].equals(tac.otac) && board[0][2].equals(tac.otac)) {
+			System.out.println("o wins");	
+		}
+		if (board[1][0].equals(tac.otac) && board[1][1].equals(tac.otac) && board[1][2].equals(tac.otac)) {
+			System.out.println("o wins");	
+		}
+		if (board[2][0].equals(tac.otac) && board[2][1].equals(tac.otac) && board[2][2].equals(tac.otac)) {
+			System.out.println("o wins");	
+		}
+		if (board[0][0].equals(tac.otac) && board[1][0].equals(tac.otac) && board[2][0].equals(tac.otac)) {
+			System.out.println("o wins");	
+		}
+		if (board[0][1].equals(tac.otac) && board[1][1].equals(tac.otac) && board[2][1].equals(tac.otac)) {
+			System.out.println("o wins");	
+		}
+		if (board[0][2].equals(tac.otac) && board[1][2].equals(tac.otac) && board[2][2].equals(tac.otac)) {
+			System.out.println("o wins");	
+		}
+		if (board[0][0].equals(tac.otac) && board[1][1].equals(tac.otac) && board[2][2].equals(tac.otac)) {
+			System.out.println("o wins");	
+		}
+		if (board[2][0].equals(tac.otac) && board[1][1].equals(tac.otac) && board[0][2].equals(tac.otac)) {
+			System.out.println("o wins");	
+		}
+		
+
+		xturn = !xturn;
+		System.out.println(viewBoard());
+	}
+	
+	public String viewBoard(){
+		String output = "";
+		for (int j = 0; j<3; j++) {
+			for (int i = 0; i<3; i++) {
+				if (board[i][j].equals(tac.notac)){
+					output += " ";
+				}
+				else if (board[i][j].equals(tac.otac)){
+					output += "O";
+				}
+				else if (board[i][j].equals(tac.xtac)){
+					output += "X";
+				}
+			}
+			output += "\n";
+		}
+		return output;
+	}
+
+	
+}

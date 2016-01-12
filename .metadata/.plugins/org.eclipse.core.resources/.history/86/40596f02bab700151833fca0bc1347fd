@@ -1,0 +1,98 @@
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+
+public class FrameOne {
+
+	private JFrame frame;
+	private JLabel lblNewLabel;
+	private JButton b1;
+	private JButton b2;
+	private JButton b3;
+	private JButton button;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrameOne window = new FrameOne();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public FrameOne() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 1000, 1000);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(200, 200, 600, 600);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Khalil\\Desktop\\chessProject\\chessGame\\JavaGuiDemo\\src\\board.png"));
+		frame.getContentPane().add(lblNewLabel);
+		
+		b1 = new JButton("x");
+		b1.setFont(new Font("Tahoma", Font.BOLD, 99));
+		b1.setBackground(Color.BLACK);
+		b1.setForeground(Color.BLACK);
+		b1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("hitButton1");
+			}
+		});
+		b1.setOpaque(false);
+		b1.setContentAreaFilled(false);
+		b1.setBorderPainted(false);
+		b1.setBounds(200, 200, 200, 200);
+		frame.getContentPane().add(b1);
+		
+		b2 = new JButton("x");
+		b2.setOpaque(false);
+		b2.setContentAreaFilled(false);
+		b2.setBorderPainted(false);
+		b2.setBounds(400, 200, 200, 200);
+		frame.getContentPane().add(b2);
+		
+		b3 = new JButton("");
+		b3.setOpaque(false);
+		b3.setContentAreaFilled(false);
+		b3.setBorderPainted(false);
+		b3.setBounds(600, 200, 200, 200);
+		frame.getContentPane().add(b3);
+	}
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
+	}
+}

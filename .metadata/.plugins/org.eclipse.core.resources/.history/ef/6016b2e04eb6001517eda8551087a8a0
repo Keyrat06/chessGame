@@ -1,0 +1,17 @@
+package tictactoe;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class boardTest {
+
+	@Test
+	public void test() {
+		Board newGame = new Board();
+		
+		newGame.move(1,1);
+		newGame.move(0,1);
+	}
+
+}

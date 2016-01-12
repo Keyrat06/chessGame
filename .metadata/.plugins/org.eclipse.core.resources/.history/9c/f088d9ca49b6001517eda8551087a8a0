@@ -1,0 +1,13 @@
+package tictactoe;
+
+public class board{
+	tac[][] Board = new tac[3][3];
+	
+	public board() {
+		
+		
+		
+	}
+	
+	
+}

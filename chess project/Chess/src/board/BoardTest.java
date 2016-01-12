@@ -9,6 +9,10 @@ public class BoardTest {
 	@Test
 	public void test() {
 		Board newBoard = new Board();
+		
+		
+		
+		
 		Integer[] start = new Integer[2];
 		start[0] = 4;
 		start[1] = 1;
@@ -18,6 +22,14 @@ public class BoardTest {
 		System.out.println(newBoard.viewBoard());
 		newBoard.move(start,end);
 		System.out.println(newBoard.viewBoard());
+		
+		
+		
+		
+		
+		
+		
+		/*
 		
 		Integer[] start1 = new Integer[2];
 		start1[0] = 4;
@@ -41,6 +53,8 @@ public class BoardTest {
 		System.out.println(newBoard.viewBoard());
 		
 		assertTrue(true);
+		
+		*/
 	}
 
 }

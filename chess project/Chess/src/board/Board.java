@@ -177,7 +177,7 @@ public class Board {
 		}
 		return moves;
 	}
-
+	
 	private ArrayList<Integer[]> moveWhitePond(Integer[] location){
 		ArrayList<Integer[]> moves = new ArrayList<>();
 		final int x = location[0];

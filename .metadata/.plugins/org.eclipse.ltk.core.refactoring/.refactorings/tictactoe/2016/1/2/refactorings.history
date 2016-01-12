@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;tictactoe.board&apos; to &apos;Board&apos;&#x0D;&#x0A;- Original project: &apos;tictactoe&apos;&#x0D;&#x0A;- Original element: &apos;tictactoe.board&apos;&#x0D;&#x0A;- Renamed element: &apos;tictactoe.Board&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;board&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;tictactoe{board.java[board" matchStrategy="1" name="Board" qualified="false" references="true" similarDeclarations="false" stamp="1452286375699" textual="false" version="1.0"/>
+</session>
