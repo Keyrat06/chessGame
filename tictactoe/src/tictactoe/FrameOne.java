@@ -226,7 +226,7 @@ public class FrameOne {
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(200, 200, 600, 600);
-		lblNewLabel.setIcon(new ImageIcon("src/board.png"));
+		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/board.png")));
 		frame.getContentPane().add(lblNewLabel);
 		
 		Message = new JLabel("");
