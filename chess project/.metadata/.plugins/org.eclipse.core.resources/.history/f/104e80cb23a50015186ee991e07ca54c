@@ -1,9 +1,0 @@
-package board;
-
-/**
- * Board will be an mutable class that will represent a chess board
- *
- */
-public class Board {
-	
-}
